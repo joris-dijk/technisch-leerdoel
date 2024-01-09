@@ -11,7 +11,7 @@ public class AStarAlgorithm {
         int rows = grid.length;
         int cols = grid[0].length;
 
-        PriorityQueue<Node> openSet = new PriorityQueue<>();
+        PriorityQueue<Node> openSet = new PriorityQueue<>(Comparator.comparingInt(node -> node.cost + node.heuristic));
         Set<Node> closedSet = new HashSet<>();
 
         Node startNode = new Node(startX, startY, 0, heuristic(startX, startY, goalX, goalY), null);
@@ -32,10 +32,11 @@ public class AStarAlgorithm {
 
                 if (nextX >= 0 && nextX < rows && nextY >= 0 && nextY < cols) {
                     if (grid[nextX][nextY] != 1) {
-                        int newCost = current.cost + grid[nextX][nextY];
+                        int newCost = current.cost + 1; // Assuming each step has a cost of 1
+
                         Node neighbor = new Node(nextX, nextY, newCost, heuristic(nextX, nextY, goalX, goalY), current);
 
-                        if (!closedSet.contains(neighbor) && !openSet.contains(neighbor)) {
+                        if (!closedSet.contains(neighbor) && !containsNodeWithEqualOrLowerCost(openSet, neighbor)) {
                             openSet.add(neighbor);
                         }
                     }
@@ -61,5 +62,9 @@ public class AStarAlgorithm {
 
         Collections.reverse(path);
         return path;
+    }
+
+    private static boolean containsNodeWithEqualOrLowerCost(PriorityQueue<Node> openSet, Node node) {
+        return openSet.stream().anyMatch(n -> n.x == node.x && n.y == node.y && n.cost <= node.cost);
     }
 }

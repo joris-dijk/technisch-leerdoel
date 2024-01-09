@@ -9,8 +9,8 @@ import java.util.Random;
 public class TileMapGenerator extends JFrame {
 
     private static final int TILE_SIZE = 15; // Size of each tile
-    private static final int ROWS = 50;
-    private static final int COLS = 50;
+    private static final int ROWS = 100;
+    private static final int COLS = 100;
 
     private int[][] tileMap;
     private Point pointA, pointB;
