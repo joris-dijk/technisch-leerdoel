@@ -55,25 +55,6 @@ public class TileMapGenerator extends JFrame {
             }
         });
 
-        panel.getInputMap().put(KeyStroke.getKeyStroke("ENTER"), "enterPressed");
-        panel.getActionMap().put("enterPressed", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (pointA != null && pointB != null) {
-                    System.out.println("Point A: (" + pointA.x + ", " + pointA.y + ")");
-                    System.out.println("Point B: (" + pointB.x + ", " + pointB.y + ")");
-                    if (path != null) {
-                        System.out.println("Shortest Path:");
-                        for (Node node : path) {
-                            System.out.println("(" + node.x + ", " + node.y + ")");
-                        }
-                    } else {
-                        System.out.println("No path found.");
-                    }
-                }
-            }
-        });
-
         panel.setFocusable(true);
 
         getContentPane().add(panel);
