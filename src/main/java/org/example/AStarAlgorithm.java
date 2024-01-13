@@ -49,14 +49,12 @@ public class AStarAlgorithm {
     }
 
     private static void checkCell(Node node) {
-        // Check if a cell with the same coordinates already exists in the checkedCells list
         if (!containsCell(checkedCells, node.x, node.y)) {
             checkedCells.add(node);
         }
     }
 
     private static boolean containsCell(List<Node> nodeList, int x, int y) {
-        // Check if a cell with the same coordinates already exists in the list
         return nodeList.stream().anyMatch(node -> node.x == x && node.y == y);
     }
 

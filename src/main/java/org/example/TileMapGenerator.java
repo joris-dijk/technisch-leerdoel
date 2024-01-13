@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class TileMapGenerator extends JFrame {
 
-  private static final int TILE_SIZE = 15; // Size of each tile
+  private static final int TILE_SIZE = 15;
   private static final int ROWS = 50;
   private static final int COLS = 75;
 
@@ -59,7 +59,7 @@ public class TileMapGenerator extends JFrame {
           path = null;
         }
 
-        panel.repaint(); // Redraw the panel
+        panel.repaint();
       }
     });
     return panel;
@@ -130,21 +130,16 @@ public class TileMapGenerator extends JFrame {
     }
   }
 
-  // Modify the calculatePath method
   private void calculatePath() {
     new Thread(() -> {
-      // Using the A* algorithm to calculate the shortest path
       List<Node> fullPath = AStarAlgorithm.findPath(tileMap, pointA.x, pointA.y, pointB.x,
           pointB.y);
 
-      // Retrieve checked cells from the A* algorithm
       List<Node> checkedCells = AStarAlgorithm.getCheckedCells();
 
-      // Show checked cells iteratively
       for (Node checkedCell : checkedCells) {
-        tileMap[checkedCell.x][checkedCell.y] = 2; // Mark as checked during the algorithm
+        tileMap[checkedCell.x][checkedCell.y] = 2;
 
-        // Trigger panel repaint on the EDT
         SwingUtilities.invokeLater(() -> getContentPane().getComponent(0).repaint());
 
         try {
@@ -154,15 +149,12 @@ public class TileMapGenerator extends JFrame {
         }
       }
 
-      // Show the shortest path in black
       path = fullPath;
-
-      // Trigger panel repaint on the EDT
       SwingUtilities.invokeLater(() -> getContentPane().getComponent(0).repaint());
 
       // Reset marked cells after the process
       for (Node checkedCell : checkedCells) {
-        tileMap[checkedCell.x][checkedCell.y] = 0; // Reset checked cells to walkable
+        tileMap[checkedCell.x][checkedCell.y] = 0;
       }
 
     }).start();
